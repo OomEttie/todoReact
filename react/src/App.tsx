@@ -1,7 +1,12 @@
 import * as React from 'react';
 import './App.css';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import About from './components/about/about';
 import Dashboard from './components/dashboard/dashboard';
+import Header from './components/header/header';
+import Todos from './components/todo/todo';
 
 class App extends React.Component {
   state = {
@@ -14,31 +19,27 @@ class App extends React.Component {
       .then(data => this.setState({ response: data.response }));
   }
 
-  // componentDidMount() {
-  //   this.callApi()
-  //     .then(res => this.setState({ response: res }))
-  //     .catch(err => this.setState({ response: err.message }));
-  // }
-
-  // callApi = async () => {
-  //   const response = await fetch('/users');
-  //   // return response.body;
-  //   const body = await response.json();
-
-  //   // console.log(body);
-  //   // if (response.status !== 200) { throw Error(body.message); }
-
-  //   return body;
-  // };
-
   public render() {
     return (
-      <div>
-        <p>{this.state.response}</p>
-        <Dashboard />
-      </div>
+      <Router>
+        <div className="App">
+          <header className="App-header">
+            <h1 className="App-title">Welcome to React</h1>
+            <Header />
+          </header>
+          <div>
+            <Route exact={true} path="/" component={Dashboard} />
+            <Route exact={true} path="/todos" component={Todos} />
+            <Route exact={true} path="/about" component={About} />
+          </div>
+          <p>{this.state.response}</p>
+        </div>
+      </Router>
     );
   }
 }
 
 export default App;
+
+//simple route
+//authenticated public vs private routes
