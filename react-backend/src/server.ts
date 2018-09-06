@@ -1,13 +1,14 @@
-import * as bodyParser from "body-parser";
-import * as cookieParser from "cookie-parser";
-import * as express from "express";
-import * as logger from "morgan";
-import * as path from "path";
-import * as errorHandler from "errorhandler";
+import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
+import * as express from 'express';
+import * as logger from 'morgan';
+import * as path from 'path';
+import * as errorHandler from 'errorhandler';
 
-import { IndexRoute } from "./routes/index";
-import { UsersRoute } from "./routes/users";
-import { ApiRoute } from "./routes/api";
+import { IndexRoute } from './routes/index';
+import { UsersRoute } from './routes/users';
+import { TodosRoute } from './routes/todos';
+import { TodoItemsRoute } from './routes/todoItems';
 
 /**
  * The server.
@@ -45,7 +46,7 @@ export class Server {
     //add routes
     this.routes();
 
-    //add api
+    //add todos
     this.api();
   }
 
@@ -67,14 +68,14 @@ export class Server {
    */
   public config() {
     //add static paths
-    this.app.use(express.static(path.join(__dirname, "public")));
+    this.app.use(express.static(path.join(__dirname, 'public')));
 
     //configure pug
-    this.app.set("views", path.join(__dirname, "views"));
-    this.app.set("view engine", "pug");
+    this.app.set('views', path.join(__dirname, 'views'));
+    this.app.set('view engine', 'pug');
 
     //mount logger
-    this.app.use(logger("dev"));
+    this.app.use(logger('dev'));
 
     //mount json form parser
     this.app.use(bodyParser.json());
@@ -87,7 +88,7 @@ export class Server {
     );
 
     //mount cookie parser middleware
-    this.app.use(cookieParser("SECRET_GOES_HERE"));
+    this.app.use(cookieParser('SECRET_GOES_HERE'));
 
     // catch 404 and forward to error handler
     this.app.use(function(
@@ -119,9 +120,11 @@ export class Server {
     IndexRoute.create(router);
     //UsersRoute
     UsersRoute.create(router);
-    //ApiRoute
-    ApiRoute.create(router);
-
+    //TodosRoute
+    TodosRoute.create(router);
+    //TodoItemsRoute
+    TodoItemsRoute.create(router);
+    
     //use router middleware
     this.app.use(router);
   }

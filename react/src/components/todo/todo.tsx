@@ -32,8 +32,8 @@ class Header extends React.Component {
       <div>
         <div>
           <h2>Todo List Component</h2>
-          <input type="text" value={this.state.newTodo} onChange={this.handleChange} />
           <button onClick={this.handleAddTodo}>ADD todo</button>
+          <input type="text" value={this.state.newTodo} onChange={this.handleChange} />
         </div>
         <div>
           <ul>

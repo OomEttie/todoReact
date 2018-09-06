@@ -1,5 +1,7 @@
-const todos = require("./todos");
+const todos = require('./todos');
+const todoItem = require('./todoItem');
 
 module.exports = {
-  todos
+  todos,
+  todoItem
 };

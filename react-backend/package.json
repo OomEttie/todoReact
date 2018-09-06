@@ -6,8 +6,8 @@
   "author": "Brian Love",
   "scripts": {
     "dev": "set NODE_ENV=development nodemon node ./bin/www",
-    "grunt": "grunt",
-    "start": "nodemon ./bin/www"
+    "grunt": "grunt && node ./bin/www",
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
