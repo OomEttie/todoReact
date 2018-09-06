@@ -13,12 +13,6 @@ class App extends React.Component {
     response: ''
   };
 
-  public componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(data => this.setState({ response: data.response }));
-  }
-
   public render() {
     return (
       <Router>
