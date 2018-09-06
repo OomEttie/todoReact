@@ -74,27 +74,30 @@ export class TodosRoute extends BaseRoute {
 
   //GET
   public getTodo(req: Request, res: Response, next: NextFunction) {
-    getById(req, res);
+    getById(req, res)
+      .then((todo: any) => {
+        if (!todo) {
+          return res.status(404).send({
+            message: 'Todo Not Found'
+          });
+        }
+        return res.status(200).send(todo);
+      })
+      .catch((error: any) => res.status(400).send(error));
   }
 
   public listTodos(req: Request, res: Response, next: NextFunction) {
-    list(req, res);
-    // list()
-    //   .then((data: any) => {
-    //     // const result = data.map((item: any) => {
-    //     //   return item.dataValues;
-    //     // });
-    //     // res.send(result);
-    //     res.send(data);
-    //   })
-    //   .catch((error: any) => {
-    //     return error;
-    //   });
+    list(req, res)
+      .then((todos: any) => {
+        console.log('response sent');
+        res.status(200).send(todos);
+      })
+      .catch((error: any) => res.status(400).send(error));
   }
 
   //POST
   public postTodo(req: Request, res: Response, next: NextFunction) {
-    create(req.body.content)
+    create(req.body)
       .then((data: any) => {
         res.send(data.dataValues);
       })

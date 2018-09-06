@@ -5,8 +5,8 @@
   "private": true,
   "author": "Brian Love",
   "scripts": {
-    "dev": "set NODE_ENV=development nodemon node ./bin/www",
-    "grunt": "grunt && node ./bin/www",
+    "dev": "grunt && node ./bin/www",
+    "grunt": "grunt",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -39,3 +39,4 @@
     "typescript": "^2.6.1"
   }
 }
+    

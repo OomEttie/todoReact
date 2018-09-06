@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { BaseRoute } from './route';
-import { create } from '../../server/controllers/todoItem';
+import { create, list, listByTodoId } from '../../server/controllers/todoItem';
 
 /**
  * / route
@@ -19,6 +19,18 @@ export class TodoItemsRoute extends BaseRoute {
     //log
     console.log('[TodoItems::create] Creating todoitems route.');
 
+    router.get(
+      '/todoitems/listByTodoId/:todoId',
+      (req: Request, res: Response, next: NextFunction) => {
+        new TodoItemsRoute().listTodosItemsByTodoId(req, res, next);
+      }
+    );
+    router.get(
+      '/todoitems/list',
+      (req: Request, res: Response, next: NextFunction) => {
+        new TodoItemsRoute().listTodosItems(req, res, next);
+      }
+    );
     router.get(
       '/todoitems',
       (req: Request, res: Response, next: NextFunction) => {
@@ -67,6 +79,16 @@ export class TodoItemsRoute extends BaseRoute {
   }
 
   //GET
+  public listTodosItems(req: Request, res: Response, next: NextFunction) {
+    list(req, res)
+      .then((todoitems: any) => res.status(200).send(todoitems))
+      .catch((error: any) => res.status(400).send(error));
+  }
+  public listTodosItemsByTodoId(req: Request, res: Response, next: NextFunction) {
+    listByTodoId(req.params.todoId)
+      .then((todoitems: any) => res.status(200).send(todoitems))
+      .catch((error: any) => res.status(400).send(error));
+  }
 
   //POST
   public postTodoItems(req: Request, res: Response, next: NextFunction) {

@@ -8,8 +8,13 @@ module.exports = {
     });
   },
   list(req, res) {
-    return TodoItem.findAll()
-      .then(todos => res.status(200).send(todos))
-      .catch(error => res.status(400).send(error));
+    return TodoItem.findAll();
+  },
+  listByTodoId(id) {
+    return TodoItem.findAll({
+      where: {
+        todoId: id
+      }
+    });
   }
 };
