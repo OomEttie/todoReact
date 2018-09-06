@@ -1,53 +1,65 @@
 import * as React from 'react';
+import { v1 as uuid } from 'uuid';
+
+const getNewItem = (desc: string = "") => ({
+  description: desc,
+  id: uuid(),
+  todoItems: [
+    {
+      title: 'test'
+    },
+    { title: 'test2' }
+  ]
+});
 
 class Header extends React.Component {
   state = {
-    newTodo: '',
-    todos: [
-      'item1',
-      'item2',
-      'item3'
-    ]
+    newTodoDescription: '',
+    todos: [getNewItem('sell Apples'), getNewItem('buy Apples')]
   };
 
-  //**HELP ??? state object not working */
+  
   handleRemoveItem = (item: any) => {
     this.setState((prevState) => ({ todos: this.state.todos.filter(todoItem => todoItem !== item) }));
-    // this.state.todos = this.state.todos.filter(obj => obj !== item);
   }
 
   handleAddTodo = () => {
-    const newTodoItem = this.state.newTodo;
-    if (newTodoItem.length > 0) {
-      this.setState((prevState) => ({ todos: this.state.todos.concat([newTodoItem]), newTodo: '' }));
+    if (this.state.newTodoDescription !== "") {
+      this.setState({ todos: this.state.todos.concat(getNewItem(this.state.newTodoDescription)) });
+      this.setState({ newTodoDescription: '' });
     }
   }
 
+  EditItem = (todoItem: any) => {
+    console.log(todoItem)
+  }
+
   handleChange = (e: any) => {
-    this.setState({ newTodo: e.target.value })
+    this.setState({ newTodoDescription: e.target.value })
   }
 
   public render() {
     return (
-      <div>
+      <div >
         <div>
           <h2>Todo List Component</h2>
-          <input type="text" value={this.state.newTodo} onChange={this.handleChange} />
+          <input type="text" value={this.state.newTodoDescription} onChange={this.handleChange} />
           <button onClick={this.handleAddTodo}>ADD todo</button>
         </div>
         <div>
-          <ul>
-            {this.state.todos.map(todoItem => {
-              const todoItemDiv = todoItem + 'div';
-              const todoItemLi = todoItem + 'li';
-              const todoItemBtn = todoItem + 'btn';
-              return (
-                <div key={todoItemDiv}>
-                  <li key={todoItemLi}>{todoItem}</li>
-                  <button key={todoItemBtn} onClick={e => { this.handleRemoveItem(todoItem) }}>X</button>
-                </div>
-              )
-            })}
+          <ul> 
+            {this.state.todos.map(todoItem => (
+                <div key={uuid()} >
+                  <button key={uuid()} onClick={() => { this.handleRemoveItem(todoItem) }}>X</button>
+                  <div key={uuid()}>
+                    <li key={uuid()} onClick={() => this.EditItem(todoItem)}>{todoItem.description}</li>
+                    {todoItem.todoItems.map(item => (
+                      <ul key={uuid()}>
+                        <li key={uuid()} onClick={() => this.EditItem(todoItem)}>{item.title}</li>
+                      </ul>))}
+                  </div>
+                </div>)
+            )}
           </ul>
         </div>
       </div>

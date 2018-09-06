@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Switch, Route  } from 'react-router-dom';
 
 import About from './components/about/about';
 import Dashboard from './components/dashboard/dashboard';
@@ -15,7 +15,7 @@ class App extends React.Component {
 
   public render() {
     return (
-      <Router>
+      <Switch>
         <div className="App">
           <header className="App-header">
             <h1 className="App-title">Welcome to React</h1>
@@ -28,7 +28,7 @@ class App extends React.Component {
           </div>
           <p>{this.state.response}</p>
         </div>
-      </Router>
+      </Switch>
     );
   }
 }
