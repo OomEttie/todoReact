@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-class Header extends React.Component {
-  public render() {
-    return (
-      <div>
+export const Header = () => {
+  return (
+    <div>
+      <header className="App-header">
+        <h1 className="App-title">Boilerplate VLabs</h1>
         <h1>Header Component</h1>
         <div>
           <Link to="/">
@@ -17,9 +18,9 @@ class Header extends React.Component {
             <button>About</button>
           </Link>
         </div>
-      </div>
-    );
-  }
-}
+      </header>
+    </div>
+  );
+};
 
 export default Header;

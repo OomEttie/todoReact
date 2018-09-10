@@ -1,58 +1,70 @@
 import * as React from 'react';
+import { TodoDash } from './tododash';
 
-class Header extends React.Component {
+import { dummyData } from './todo.mock';
+
+export class Todo extends React.Component {
   state = {
-    newTodo: '',
-    todos: [
-      'item1',
-      'item2',
-      'item3'
-    ]
+    todos: dummyData
   };
-
-  //**HELP ??? state object not working */
-  handleRemoveItem = (item: any) => {
-    this.setState((prevState) => ({ todos: this.state.todos.filter(todoItem => todoItem !== item) }));
-    // this.state.todos = this.state.todos.filter(obj => obj !== item);
-  }
-
-  handleAddTodo = () => {
-    const newTodoItem = this.state.newTodo;
-    if (newTodoItem.length > 0) {
-      this.setState((prevState) => ({ todos: this.state.todos.concat([newTodoItem]), newTodo: '' }));
-    }
-  }
-
-  handleChange = (e: any) => {
-    this.setState({ newTodo: e.target.value })
-  }
 
   public render() {
     return (
-      <div>
-        <div>
-          <h2>Todo List Component</h2>
-          <button onClick={this.handleAddTodo}>ADD todo</button>
-          <input type="text" value={this.state.newTodo} onChange={this.handleChange} />
-        </div>
-        <div>
-          <ul>
-            {this.state.todos.map(todoItem => {
-              const todoItemDiv = todoItem + 'div';
-              const todoItemLi = todoItem + 'li';
-              const todoItemBtn = todoItem + 'btn';
-              return (
-                <div key={todoItemDiv}>
-                  <li key={todoItemLi}>{todoItem}</li>
-                  <button key={todoItemBtn} onClick={e => { this.handleRemoveItem(todoItem) }}>X</button>
-                </div>
-              )
-            })}
-          </ul>
-        </div>
+      <div>        
+        <TodoDash todos={this.state.todos} />
       </div>
     );
   }
 }
 
-export default Header;
+export default Todo;
+
+// //**HELP ??? state object not working */
+// handleRemoveItem = (item: any) => {
+//   this.setState(prevState => ({
+//     todos: this.state.todos.filter(todoItem => todoItem !== item)
+//   }));
+//   // this.state.todos = this.state.todos.filter(obj => obj !== item);
+// };
+
+// handleAddTodo = () => {
+//   const newTodoItem = this.state.newTodo;
+//   if (newTodoItem.length > 0) {
+//     this.setState(prevState => ({
+//       todos: this.state.todos.concat([newTodoItem]),
+//       newTodo: ''
+//     }));
+//   }
+// };
+
+// handleChange = (e: any) => {
+//   this.setState({ newTodo: e.target.value });
+// };
+
+// public componentDidMount() {
+//   console.log('Todo-componentDidMount');
+// }
+
+// handleEditTodo = (item: any) => {
+//   this.setState(
+//     {
+//       todoForEdit: item
+//     },
+//     () => {
+//       // this.props.history.push('/todos/edit');
+//       console.log(this.state.todoForEdit);
+//       // this.setState({ redirectToEdit: true });
+//       // this.context.history.push('/todos/edit');
+//       // Redirect({ to: '/todos/edit' });
+
+//       // var transitionTo = Router.tra;
+//       // transitionTo('your_route_name', (query = { keyword: input_value }));
+//     }
+//   );
+// };
+
+// handleRemoveTodo = (item: any) => {
+//   this.setState(prevState => ({
+//     todos: this.state.todos.filter(todo => todo !== item)
+//   }));
+// };
