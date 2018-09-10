@@ -30,7 +30,12 @@ export const dummyData: TodoInterfaces.ITodo[] = [
 ];
 
 export const getTodoFromDummyData = (todoid: number) => {
-  return dummyData.filter(
+  const todo = dummyData.filter(
     (todo: TodoInterfaces.ITodo) => todo.todo_id == todoid
   );
+  if (todo && todo.length > 0) {
+    return todo[0];
+  } else {
+    return <TodoInterfaces.ITodo>{};
+  }
 };

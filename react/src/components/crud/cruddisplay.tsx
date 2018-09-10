@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { dummyData, getTodoFromDummyData } from '../todo/todo.mock';
 import { Link } from 'react-router-dom';
 import * as TodoInterfaces from '../todo/todo.interface';
 
@@ -31,11 +30,19 @@ const CrudDisplayTodo = (props: ICrudDisplayTodoProps) => {
 interface ICrudDisplayTodoItemProps {
   todoItems: TodoInterfaces.ITodoItem[];
 }
-const CrudDisplayTodoItem = (props: ICrudDisplayTodoItemProps) => {
+export const CrudDisplayTodoItem = (props: ICrudDisplayTodoItemProps) => {
   return (
     <div>
       {props.todoItems.map((todoitem: TodoInterfaces.ITodoItem) => {
-        return <div key={todoitem.todoitem_id}>* {todoitem.description}</div>;
+        return (
+          <div key={todoitem.todoitem_id}>
+            <li>
+              {todoitem.description}
+              {` - `}
+              {todoitem.complete ? 'true' : 'false'}
+            </li>
+          </div>
+        );
       })}
     </div>
   );

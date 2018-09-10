@@ -3,31 +3,20 @@ import { getTodoFromDummyData } from '../todo/todo.mock';
 import { Redirect } from 'react-router-dom';
 import * as TodoInterfaces from '../todo/todo.interface';
 
+import { CrudEditItem } from './crudedititem';
+
 interface ICrudEditProps {}
 interface ICrudEditState {
   commitToSave: boolean;
-  todoid: number;
-  todo: TodoInterfaces.ITodo[];
-  title: string;
-  status: string;
+  todo: TodoInterfaces.ITodo;
 }
 export class CrudEdit extends React.Component<ICrudEditProps, ICrudEditState> {
   constructor(props: any) {
     super(props);
     this.state = {
       commitToSave: false,
-      todoid: props.match.params.id,
-      todo: getTodoFromDummyData(props.match.params.id),
-      title: '',
-      status: ''
+      todo: getTodoFromDummyData(props.match.params.id)
     };
-  }
-
-  componentDidMount() {
-    this.setState(prevState => ({
-      title: prevState.todo[0].title,
-      status: prevState.todo[0].status
-    }));
   }
 
   handleEditTodoSave = () => {
@@ -36,36 +25,37 @@ export class CrudEdit extends React.Component<ICrudEditProps, ICrudEditState> {
   };
 
   onChangeTitle = (e: any) => {
-    this.setState({ title: e.target.value });
+    this.setState({ todo: { ...this.state.todo, title: e.target.value } });
   };
 
   onChangeStatus = (e: any) => {
-    this.setState({ status: e.target.value });
+    this.setState({ todo: { ...this.state.todo, status: e.target.value } });
   };
 
   public render() {
     return (
       <div>
-        <h2>Editing - {this.state.todo[0].title} </h2>
+        <h2>Editing</h2>
         <span>Title:</span>
         <input
           type="text"
-          placeholder={this.state.todo[0].title}
+          placeholder={this.state.todo.title}
           onChange={this.onChangeTitle}
-          value={this.state.title}
+          value={this.state.todo.title}
         />
         <br />
         <span>Status:</span>
-        <select onChange={this.onChangeStatus} value={this.state.status}>
+        <select onChange={this.onChangeStatus} value={this.state.todo.status}>
           <option value="new">new</option>
           <option value="busy">busy</option>
           <option value="complete">complete</option>
         </select>
         <br />
         <br />
-        {this.state.todo[0].todoItems.map(item => {
-          return <CrudEditTodoItem key={item.todoitem_id} todoitem={item} />;
-        })}
+        {this.state.todo.title &&
+          this.state.todo.todoItems.map(item => {
+            return <CrudEditItem key={item.todoitem_id} todoitem={item} />;
+          })}
         <br />
         <button onClick={this.handleEditTodoSave}>SAVE</button>
         {this.state.commitToSave && <Redirect to="/crud" />}
@@ -75,35 +65,3 @@ export class CrudEdit extends React.Component<ICrudEditProps, ICrudEditState> {
 }
 
 export default CrudEdit;
-
-interface ICrudEditTodoitemProps {
-  todoitem: TodoInterfaces.ITodoItem;
-}
-const CrudEditTodoItem = (props: ICrudEditTodoitemProps) => {
-  return (
-    <div>
-      *{props.todoitem.description} -{' '}
-      {props.todoitem.complete ? 'true' : 'false'}
-    </div>
-  );
-};
-
-// export const CrudEdit = (props: any) => {
-//   const todo: TodoInterfaces.ITodo[] = getTodoFromDummyData(
-//     props.match.params.id
-//   );
-//   return (
-//     <div>
-//       <h2>Editing - {todo[0].title} </h2>
-//       <span>Title: {todo[0].title}</span>
-//       <br />
-//       <span>Status: {todo[0].status}</span>
-//       <br />
-//       {todo[0].todoItems.map(item => {
-//         return <CrudEditTodoItem key={item.todoitem_id} todoitem={item} />;
-//       })}
-//       <br />
-//       <Link to="/crud">SAVE</Link>
-//     </div>
-//   );
-// };
