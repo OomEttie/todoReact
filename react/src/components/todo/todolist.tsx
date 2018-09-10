@@ -38,7 +38,7 @@ const DisplayTodo = (props: ITodoList_Generic) => (
   <div>
     <h3>{props.todo.title}</h3>
     {props.todo.todoItems.map((item: InterfaceTodo.ITodoItem) => {
-      return <div>{item.description}</div>;
+      return <div key={item.todoitem_id}>{item.description}</div>;
     })}
     <div>
       <br />
@@ -51,7 +51,7 @@ const EditTodo = (props: ITodoList_Generic) => (
   <div>
     <h3>EDITING {props.todo.title}</h3>
     {props.todo.todoItems.map((item: InterfaceTodo.ITodoItem) => {
-      return <div>{item.description}</div>;
+      return <div key={item.todoitem_id}>{item.description}</div>;
     })}
     <div>
       <br />

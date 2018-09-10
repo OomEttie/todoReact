@@ -5,6 +5,7 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import About from './components/about/about';
+import CRUD from './components/crud/crud';
 import Dashboard from './components/dashboard/dashboard';
 import Header from './components/header/header';
 import Todo from './components/todo/todo';
@@ -23,6 +24,7 @@ class App extends React.Component {
             <div>
               <Route exact={true} path="/" component={Dashboard} />
               <Route path="/about" component={About} />
+              <Route path="/crud" component={CRUD} />
               <Route path="/todos" render={() => <Todo />} />
             </div>
           </div>

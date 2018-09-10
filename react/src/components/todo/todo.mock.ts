@@ -11,7 +11,7 @@ export const dummyData: TodoInterfaces.ITodo[] = [
         description: 'demo todo 1 todoitem 1',
         todoitem_id: 1
       },
-      { complete: true, description: 'demo todo 1 todoitem 1', todoitem_id: 2 }
+      { complete: true, description: 'demo todo 1 todoitem 2', todoitem_id: 2 }
     ]
   },
   {
@@ -28,3 +28,9 @@ export const dummyData: TodoInterfaces.ITodo[] = [
     ]
   }
 ];
+
+export const getTodoFromDummyData = (todoid: number) => {
+  return dummyData.filter(
+    (todo: TodoInterfaces.ITodo) => todo.todo_id == todoid
+  );
+};

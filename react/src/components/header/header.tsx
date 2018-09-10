@@ -14,6 +14,9 @@ export const Header = () => {
           <Link to="/todos">
             <button>ToDos</button>
           </Link>
+          <Link to="/crud">
+            <button>CRUD</button>
+          </Link>
           <Link to="/about">
             <button>About</button>
           </Link>
